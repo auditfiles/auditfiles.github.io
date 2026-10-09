@@ -13,6 +13,7 @@
   --muted: #55646f;
   --line: #cfd7dd;
   --copper: #b8531c;
+  --spark: #e59a00;
   --magnet-n: #c23a3a;
   --magnet-s: #2f6f9f;
   --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
@@ -22,13 +23,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0f171e; --surface: #17222b; --fg: #e6ecf0; --muted: #98a8b3; --line: #2a3945;
-    --copper: #e08a4f; --magnet-n: #e46a6a; --magnet-s: #5aa2d4;
+    --copper: #e08a4f; --magnet-n: #e46a6a; --magnet-s: #5aa2d4; --spark: #ffd23f;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0f171e; --surface: #17222b; --fg: #e6ecf0; --muted: #98a8b3; --line: #2a3945;
-  --copper: #e08a4f; --magnet-n: #e46a6a; --magnet-s: #5aa2d4;
+  --copper: #e08a4f; --magnet-n: #e46a6a; --magnet-s: #5aa2d4; --spark: #ffd23f;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -62,6 +63,21 @@ a { color: var(--copper); }
 .magnet { animation: swing 2.4s ease-in-out infinite alternate; }
 @keyframes swing { from { transform: translateX(0); } to { transform: translateX(150px); } }
 @media (prefers-reduced-motion: reduce) { .magnet { animation: none; transform: translateX(75px); } }
+
+.wire { stroke: var(--muted); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.box { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+.batt { fill: none; stroke: var(--fg); stroke-width: 2; }
+.batt-nub { fill: var(--fg); }
+.seg { fill: var(--spark); opacity: 0.15; animation: segfill 9.6s linear infinite; }
+@keyframes segfill { 0%, 6% { opacity: 0.15; } 12%, 90% { opacity: 1; } 100% { opacity: 0.15; } }
+#coilglow { opacity: 0; animation: surge 2.4s ease-in-out infinite; }
+.glow-line { stroke: var(--spark); stroke-width: 4; stroke-linecap: round; fill: none; }
+.pulse { fill: var(--spark); animation: surge 2.4s ease-in-out infinite; }
+@keyframes surge { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  #coilglow, .pulse { display: none; }
+  .seg { animation: none; opacity: 0.8; }
+}
 
 section { display: flex; flex-direction: column; gap: 20px; }
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; padding: 0; margin: 0; list-style: none; }
@@ -104,18 +120,36 @@ footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid 
     <h1>Flux<span>pack</span></h1>
     <p class="lede">The induction backpack. We're building a pack that makes electricity as you walk: a magnet swings through a coil with every step, and a small circuit stores the current in a battery.</p>
     <p class="label">Made by Aadit Naik (UC Berkeley &rsquo;30) and Kaviya Ramesh (Georgia Tech &rsquo;30)</p>
-    <div class="rig" role="img" aria-label="Animation: a magnet sliding back and forth inside a copper coil.">
-      <svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg">
+    <div class="rig" role="img" aria-label="Animation: a magnet sliding back and forth inside a copper coil, with the coil glowing and current flowing through a circuit into a battery that charges.">
+      <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="blur" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="2.5"/></filter></defs>
         <rect class="tube" x="80" y="48" width="260" height="34" rx="6"/>
         <g id="coil"></g>
+        <g id="coilglow" filter="url(#blur)"></g>
+        <path class="wire" d="M340 65 H366 M410 65 H430"/>
+        <path class="wire" d="M460 80 V100 H60 V65 H80"/>
+        <circle class="pulse" r="3"><animateMotion dur="1.5s" begin="0s" repeatCount="indefinite" path="M340 65 H430"/></circle>
+        <circle class="pulse" r="3"><animateMotion dur="1.5s" begin="0.5s" repeatCount="indefinite" path="M340 65 H430"/></circle>
+        <circle class="pulse" r="3"><animateMotion dur="1.5s" begin="1s" repeatCount="indefinite" path="M340 65 H430"/></circle>
+        <rect class="box" x="366" y="53" width="44" height="24" rx="4"/>
+        <text class="axis-txt" x="388" y="68" text-anchor="middle" style="font-size:9px">circuit</text>
+        <text class="axis-txt" x="353" y="58" text-anchor="middle">AC</text>
+        <text class="axis-txt" x="420" y="58" text-anchor="middle">DC</text>
+        <rect class="batt" x="430" y="50" width="60" height="30" rx="4"/>
+        <rect class="batt-nub" x="490" y="58" width="6" height="14" rx="1"/>
+        <rect class="seg" x="436" y="55" width="11" height="20" rx="1" style="animation-delay:0s"/>
+        <rect class="seg" x="450" y="55" width="11" height="20" rx="1" style="animation-delay:2.4s"/>
+        <rect class="seg" x="464" y="55" width="11" height="20" rx="1" style="animation-delay:4.8s"/>
+        <rect class="seg" x="478" y="55" width="11" height="20" rx="1" style="animation-delay:7.2s"/>
         <g class="magnet">
           <rect class="mag-n" x="96" y="53" width="30" height="24" rx="2"/>
           <rect class="mag-s" x="126" y="53" width="30" height="24" rx="2"/>
           <text class="mag-txt" x="105" y="69">N</text>
           <text class="mag-txt" x="136" y="69">S</text>
         </g>
-        <text class="axis-txt" x="80" y="108">coil: 5,000 turns of 32 AWG wire</text>
-        <text class="axis-txt" x="80" y="124">magnet slides with each step</text>
+        <text class="axis-txt" x="80" y="126">coil: 5,000 turns of 32 AWG wire</text>
+        <text class="axis-txt" x="80" y="142">magnet slides with each step</text>
+        <text class="axis-txt" x="496" y="126" text-anchor="end">current is stored in a battery</text>
       </svg>
       <p class="label cap">Simplified diagram, not to scale</p>
     </div>
@@ -273,12 +307,16 @@ footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid 
 (function () {
   // Draw the coil windings as evenly spaced loops around the tube.
   var g = document.getElementById('coil');
+  var glow = document.getElementById('coilglow');
   var ns = 'http://www.w3.org/2000/svg';
   for (var x = 92; x <= 328; x += 9) {
     var p = document.createElementNS(ns, 'path');
     p.setAttribute('d', 'M' + x + ' 40 Q' + (x + 5) + ' 65 ' + x + ' 90');
     p.setAttribute('class', 'coil-line');
     g.appendChild(p);
+    var q = p.cloneNode(false);
+    q.setAttribute('class', 'glow-line');
+    glow.appendChild(q);
   }
   // If MathJax never loads, show the plain-text equation instead.
   setTimeout(function () {
