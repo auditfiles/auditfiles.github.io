@@ -91,6 +91,7 @@ figure video, figure img { display: block; width: 100%; height: auto; border-rad
 figure .frame { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); }
 figure .frame img, figure .frame video { height: 100%; object-fit: cover; border: 0; border-radius: 0; }
 figure.tall .frame { aspect-ratio: 3 / 4; }
+#mechanism .videos { grid-template-columns: minmax(0, 320px); }
 figcaption { font-size: 0.9rem; color: var(--muted); max-width: 40ch; }
 .sub { display: flex; flex-direction: column; gap: 16px; }
 
@@ -199,6 +200,17 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
       <figure>
         <video controls muted playsinline preload="none" poster="media/board-test.jpg" src="media/board-test.mp4">Your browser can't play this video.</video>
         <figcaption>Power board wired to the coil during a test.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="mechanism">
+    <h2>The mechanism</h2>
+    <p>The swinging part, tested on its own in a cardboard box.</p>
+    <div class="videos">
+      <figure>
+        <video controls muted playsinline preload="none" poster="media/pendulum-demo.jpg" src="media/pendulum-demo.mp4">Your browser can't play this video.</video>
+        <figcaption>Pendulum frame swinging in a test box.</figcaption>
       </figure>
     </div>
   </section>
