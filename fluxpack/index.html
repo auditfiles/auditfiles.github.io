@@ -95,14 +95,14 @@ figure.tall .frame { aspect-ratio: 3 / 4; }
 figcaption { font-size: 0.9rem; color: var(--muted); max-width: 40ch; }
 .sub { display: flex; flex-direction: column; gap: 16px; }
 
-footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 0.9rem; }
+footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 0.9rem; }
 </style>
 
 <main class="wrap">
   <header class="hero">
     <span class="label">Wearable energy harvester · in development since 2024</span>
     <h1>Flux<span>pack</span></h1>
-    <p class="lede">The induction backpack: it makes electricity from your walk. A magnet swings through a coil with every step, and the current it induces charges a lithium-ion battery.</p>
+    <p class="lede">The induction backpack. We're building a pack that makes electricity as you walk: a magnet swings through a coil with every step, and a small circuit stores the current in a battery.</p>
     <p class="label">Made by Aadit Naik (UC Berkeley &rsquo;30) and Kaviya Ramesh (Georgia Tech &rsquo;30)</p>
     <div class="rig" role="img" aria-label="Animation: a magnet sliding back and forth inside a copper coil.">
       <svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg">
@@ -121,6 +121,17 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
     </div>
   </header>
 
+  <section id="about">
+    <h2>What it is</h2>
+    <p>Fluxpack is a backpack with a small generator built in. As you walk, a magnet inside swings back and forth through a coil of wire. That motion induces an electric current, and a short chain of circuit modules turns it into steady power for a lithium-ion battery.</p>
+    <p>So far we have built and tested the three main parts on their own: the coil, the power circuit and the pendulum. Next, they go into a backpack.</p>
+  </section>
+
+  <section id="why">
+    <h2>Why it matters</h2>
+    <p>People who deal with frequent power outages are often left unable to keep small essentials charged. A pack that makes its own power as you walk doesn't need sunlight or an outlet. Hikers and others far from any outlet face a similar problem.</p>
+  </section>
+
   <section id="how">
     <h2>How it works</h2>
     <ol class="steps">
@@ -137,7 +148,7 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
       <li>
         <span class="label">Store</span>
         <h3>Power circuit to battery</h3>
-        <p>Three small modules turn that AC into regulated 5 V and charge a lithium-ion cell safely.</p>
+        <p>Three small modules turn that AC into steady DC, step it up, and charge a lithium-ion cell.</p>
       </li>
     </ol>
     <div class="eq">
@@ -160,14 +171,14 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
       <div class="stage">
         <span class="label">Stage 2</span>
         <span class="part">MT3608</span>
-        <span class="io">DC in → 5 V out</span>
-        <p>Boost converter that steps the voltage up to 5 V.</p>
+        <span class="io">DC in → higher DC out</span>
+        <p>Boost converter that steps the voltage up.</p>
       </div>
       <div class="stage">
         <span class="label">Stage 3</span>
         <span class="part">TP4056</span>
-        <span class="io">5 V in → Li-ion cell</span>
-        <p>Charging module that fills the lithium-ion battery safely.</p>
+        <span class="io">DC in → Li-ion cell</span>
+        <p>Charging module for the lithium-ion battery.</p>
       </div>
     </div>
   </section>
@@ -180,14 +191,14 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
           <tr><th scope="row">Generator</th><td>Oscillating magnet through a fixed coil</td></tr>
           <tr><th scope="row">Coil form</th><td>Custom CAD design, 3D printed</td></tr>
           <tr><th scope="row">Winding</th><td>5,000 turns, 32 AWG magnet wire</td></tr>
-          <tr><th scope="row">Output</th><td>5 V, to charge a lithium-ion battery</td></tr>
+          <tr><th scope="row">Output</th><td>Bench tests: LTC3588 about 1.8 V, MT3608 about 4 V. Designed to charge a lithium-ion battery.</td></tr>
           <tr><th scope="row">Testing</th><td>Coil output, efficiency and safety, across several prototypes</td></tr>        </tbody>
       </table>
     </div>
   </section>
 
   <section id="gallery">
-    <h2>It works</h2>
+    <h2>Bench tests</h2>
     <p>Testing the coil by hand: the magnet goes in and out of the coil while a multimeter reads the output.</p>
     <div class="videos">
       <figure>
@@ -247,8 +258,14 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
     </div>
   </section>
 
+  <section id="next">
+    <h2>What's next</h2>
+    <p>We're finishing installing the coil, circuit and pendulum in a backpack, then testing it while walking.</p>
+  </section>
+
   <footer>
     <p>Made by Aadit Naik (UC Berkeley &rsquo;30) and Kaviya Ramesh (Georgia Tech &rsquo;30). Self-directed project.</p>
+    <p>Contact Aadit: <a href="mailto:aaditbnaik@gmail.com">aaditbnaik@gmail.com</a> &middot; <a href="https://www.linkedin.com/in/aadit-naik/" target="_blank" rel="noopener">LinkedIn</a></p>
   </footer>
 </main>
 
