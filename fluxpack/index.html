@@ -84,10 +84,15 @@ section { display: flex; flex-direction: column; gap: 20px; }
 .specs-wrap { overflow-x: auto; }
 .tbd { color: var(--muted); font-style: italic; }
 
-.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
-.slot { border: 1.5px dashed var(--line); border-radius: 6px; aspect-ratio: 4 / 3; max-width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; color: var(--muted); font-family: var(--font-mono); font-size: 0.8rem; }
-.slot.video { aspect-ratio: 16 / 9; grid-column: span 2; }
-@media (max-width: 560px) { .slot.video { grid-column: span 1; } }
+.videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+figure video, figure img { display: block; width: 100%; height: auto; border-radius: 4px; background: var(--surface); border: 1px solid var(--line); }
+figure .frame { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); }
+figure .frame img, figure .frame video { height: 100%; object-fit: cover; border: 0; border-radius: 0; }
+figure.tall .frame { aspect-ratio: 3 / 4; }
+figcaption { font-size: 0.9rem; color: var(--muted); max-width: 40ch; }
+.sub { display: flex; flex-direction: column; gap: 16px; }
 
 footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 0.9rem; }
 </style>
@@ -98,7 +103,7 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
     <h1>Flux<span>pack</span></h1>
     <p class="lede">The induction backpack: it makes electricity from your walk. A magnet swings through a coil with every step, and the current it induces charges a lithium-ion battery.</p>
     <div class="rig" role="img" aria-label="Animation: a magnet sliding back and forth inside a copper coil.">
-      <svg viewBox="0 0 420 136"xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg">
         <rect class="tube" x="80" y="48" width="260" height="34" rx="6"/>
         <g id="coil"></g>
         <g class="magnet">
@@ -107,7 +112,7 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
           <text class="mag-txt" x="105" y="69">N</text>
           <text class="mag-txt" x="136" y="69">S</text>
         </g>
-        <text class="axis-txt" x="80" y="108">coil: 2,000+ turns of 32 AWG wire</text>
+        <text class="axis-txt" x="80" y="108">coil: 5,000 turns of 32 AWG wire</text>
         <text class="axis-txt" x="80" y="124">magnet slides with each step</text>
       </svg>
       <p class="label cap">Simplified diagram, not to scale</p>
@@ -137,7 +142,7 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
       <span class="label">Faraday's law of induction</span>
       <div>\[ \varepsilon = -N\,\frac{d\Phi}{dt} \]</div>
       <p class="raw" style="display:none" id="eq-fallback">ε = −N · dΦ/dt</p>
-      <p style="color:var(--muted);font-size:0.95rem">More turns N and a faster-changing flux Φ give more voltage, which is why the coil has over two thousand turns.</p>
+      <p style="color:var(--muted);font-size:0.95rem">More turns N and a faster-changing flux Φ give more voltage, which is why the coil has 5,000 turns.</p>
     </div>
   </section>
 
@@ -172,7 +177,7 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
         <tbody>
           <tr><th scope="row">Generator</th><td>Oscillating magnet through a fixed coil</td></tr>
           <tr><th scope="row">Coil form</th><td>Custom CAD design, 3D printed</td></tr>
-          <tr><th scope="row">Winding</th><td>2,000+ turns, 32 AWG magnet wire</td></tr>
+          <tr><th scope="row">Winding</th><td>5,000 turns, 32 AWG magnet wire</td></tr>
           <tr><th scope="row">Output</th><td>5 V, to charge a lithium-ion battery</td></tr>
           <tr><th scope="row">Testing</th><td>Coil output, efficiency and safety, across several prototypes</td></tr>
           <tr><th scope="row">Measured power</th><td class="tbd">To add: watts and charge time from walking tests</td></tr>
@@ -182,15 +187,52 @@ footer { border-top: 1px solid var(--line); padding-top: 20px; color: var(--mute
   </section>
 
   <section id="gallery">
-    <h2>Build photos and video</h2>
-    <p>Photos and clips from the build and testing go here.</p>
-    <div class="gallery">
-      <div class="slot video">Video slot: pendulum demo</div>
-      <div class="slot">Photo slot</div>
-      <div class="slot">Photo slot</div>
-      <div class="slot">Photo slot</div>
-      <div class="slot">Photo slot</div>
-      <div class="slot">Photo slot</div>
+    <h2>It working</h2>
+    <p>Testing the coil by hand: the magnet goes in and out of the coil while a multimeter reads the output.</p>
+    <div class="videos">
+      <figure>
+        <video controls muted playsinline preload="none" poster="media/magnet-test-1.jpg" src="media/magnet-test-1.mp4">Your browser can't play this video.</video>
+        <figcaption>Magnet moving through the coil, multimeter on the output.</figcaption>
+      </figure>
+      <figure>
+        <video controls muted playsinline preload="none" poster="media/magnet-test-2.jpg" src="media/magnet-test-2.mp4">Your browser can't play this video.</video>
+        <figcaption>A longer run of the same test.</figcaption>
+      </figure>
+      <figure>
+        <video controls muted playsinline preload="none" poster="media/board-test.jpg" src="media/board-test.mp4">Your browser can't play this video.</video>
+        <figcaption>Power board wired to the coil during a test.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="build">
+    <h2>The build</h2>
+    <p>From breadboard tests to the soldered power board.</p>
+    <div class="photos">
+      <figure class="tall">
+        <a class="frame" href="media/breadboard-test.jpg" target="_blank" rel="noopener"><img src="media/breadboard-test.jpg" alt="Rectifier module wired up on a breadboard" loading="lazy" width="1200" height="1600"></a>
+        <figcaption>First breadboard test of the rectifier stage.</figcaption>
+      </figure>
+      <figure class="tall">
+        <a class="frame" href="media/coil-form.jpg" target="_blank" rel="noopener"><img src="media/coil-form.jpg" alt="Wound coil on its form, held with tape, with lead wires" loading="lazy" width="1200" height="1600"></a>
+        <figcaption>The wound coil on its form, taped and wired.</figcaption>
+      </figure>
+      <figure class="tall">
+        <a class="frame" href="media/perfboard-wiring.jpg" target="_blank" rel="noopener"><img src="media/perfboard-wiring.jpg" alt="Perfboard with jumper wires for the power circuit" loading="lazy" width="1200" height="1600"></a>
+        <figcaption>Wiring the power circuit onto perfboard.</figcaption>
+      </figure>
+      <figure class="tall">
+        <a class="frame" href="media/perfboard-modules.jpg" target="_blank" rel="noopener"><img src="media/perfboard-modules.jpg" alt="Perfboard with charger, boost converter and rectifier modules mounted" loading="lazy" width="1200" height="1600"></a>
+        <figcaption>Charger, boost converter and rectifier modules on the board.</figcaption>
+      </figure>
+      <figure class="tall">
+        <a class="frame" href="media/circuit-and-coil.jpg" target="_blank" rel="noopener"><img src="media/circuit-and-coil.jpg" alt="Hand holding the power board next to the coil" loading="lazy" width="1200" height="1600"></a>
+        <figcaption>Checking the board next to the coil.</figcaption>
+      </figure>
+      <figure class="tall">
+        <a class="frame" href="media/workbench.jpg" target="_blank" rel="noopener"><img src="media/workbench.jpg" alt="Workbench with multimeter, solder, wire and tools" loading="lazy" width="1200" height="1600"></a>
+        <figcaption>The workbench: multimeter, solder, wire and parts.</figcaption>
+      </figure>
     </div>
   </section>
 
