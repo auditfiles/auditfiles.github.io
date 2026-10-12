@@ -23,71 +23,132 @@
 <title>Fluxpack</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Share+Tech+Mono&display=swap">
 <script>window.MathJax = { svg: { fontCache: 'none' } };</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" async></script>
 <style>
-/* Layout: single column, wide hero with the animated coil, then a spec sheet feel for the build details. */
+/* Layout: one column of frosted glass sheets over a blue drafting grid, with lit blue and cyan fields behind the glass. Always a dark blueprint. */
 :root {
-  --bg: #eef1f3;
-  --surface: #ffffff;
-  --fg: #14202b;
-  --muted: #55646f;
-  --line: #cfd7dd;
-  --copper: #b8531c;
-  --spark: #e59a00;
-  --magnet-n: #c23a3a;
-  --magnet-s: #2f6f9f;
-  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f171e; --surface: #17222b; --fg: #e6ecf0; --muted: #98a8b3; --line: #2a3945;
-    --copper: #e08a4f; --magnet-n: #e46a6a; --magnet-s: #5aa2d4; --spark: #ffd23f;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f171e; --surface: #17222b; --fg: #e6ecf0; --muted: #98a8b3; --line: #2a3945;
-  --copper: #e08a4f; --magnet-n: #e46a6a; --magnet-s: #5aa2d4; --spark: #ffd23f;
   color-scheme: dark;
+  --bg: #061729;
+  --fg: #eaf5ff;
+  --muted: #c3dcf2;
+  --link: #ffd166;
+  --copper: #ffd166;
+  --spark: #ffd166;
+  --magnet-n: #ff8f8f;
+  --magnet-s: #7cc4ff;
+  --line: rgba(220, 239, 255, 0.28);
+  --line-strong: rgba(220, 239, 255, 0.7);
+  --glass: rgba(8, 24, 46, 0.5);
+  --glass-solid: rgba(8, 26, 48, 0.97);
+  --glass-border: rgba(220, 239, 255, 0.42);
+  --card: rgba(255, 255, 255, 0.045);
+  --card-border: rgba(220, 239, 255, 0.3);
+  --rim: rgba(255, 255, 255, 0.4);
+  --rim-low: rgba(255, 255, 255, 0.06);
+  --sheen: rgba(255, 255, 255, 0.14);
+  --spec: rgba(255, 255, 255, 0.18);
+  --shadow: 0 14px 40px rgba(0, 5, 18, 0.6);
+  --blob-a: #4696ff;
+  --blob-b: #5adcff;
+  --blob-c: #2f6fd0;
+  --blob-d: #3aa8e0;
+  --blob-o: 0.32;
+  --bf: blur(18px) saturate(1.5);
+  --r-lg: 18px;
+  --r-md: 12px;
+  --r-sm: 8px;
+  --pad: clamp(20px, 4.5vw, 40px);
+  --font-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Share Tech Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
 }
+@media (max-width: 640px) { :root { --bf: blur(12px) saturate(1.4); } }
+
 * { box-sizing: border-box; }
 body {
   background: var(--bg); color: var(--fg);
   font-family: var(--font-body); font-size: 17px; line-height: 1.6;
-  padding-inline: 16px; padding-block: 32px 64px;
+  padding-inline: 16px; padding-block: 28px 64px;
 }
-.wrap { max-width: 880px; margin-inline: auto; display: flex; flex-direction: column; gap: 72px; }
+.wrap { position: relative; z-index: 1; max-width: 880px; margin-inline: auto; display: flex; flex-direction: column; gap: 28px; }
 h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
-h1 { font-size: clamp(2.6rem, 8vw, 4.6rem); font-weight: 700; letter-spacing: -0.02em; }
-h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; }
-h3 { font-size: 1.15rem; font-weight: 500; }
+h1 { font-size: clamp(3.4rem, 11vw, 6rem); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; line-height: 0.95; }
+h2 { font-size: clamp(1.7rem, 4.5vw, 2.3rem); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+h3 { font-size: 1.35rem; font-weight: 600; letter-spacing: 0.03em; }
 p { margin: 0; max-width: 65ch; }
-.label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-a { color: var(--copper); }
-:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
+.label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+body { counter-reset: sheet; }
+main > section.panel > h2::before { counter-increment: sheet; content: "SHEET " counter(sheet, decimal-leading-zero); display: block; font: 400 0.72rem/1.4 var(--font-mono); letter-spacing: 0.16em; color: var(--spark); margin-bottom: 6px; }
+a { color: var(--link); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 
-.hero { display: flex; flex-direction: column; gap: 24px; }
+/* Background light: four soft colour fields that drift slowly behind the glass. */
+.bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.bg::before { content: ""; position: absolute; inset: 0; z-index: 1;
+  background-image: linear-gradient(rgba(160, 210, 255, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(160, 210, 255, 0.12) 1px, transparent 1px), linear-gradient(rgba(160, 210, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(160, 210, 255, 0.05) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px; }
+.bg i { position: absolute; display: block; width: 70vmax; height: 70vmax; border-radius: 50%; opacity: var(--blob-o); will-change: transform; }
+.bg .a { left: -22vmax; top: -24vmax; background: radial-gradient(closest-side, var(--blob-a), transparent); animation: drift-a 32s ease-in-out infinite alternate; }
+.bg .b { right: -30vmax; top: 8vh; background: radial-gradient(closest-side, var(--blob-b), transparent); animation: drift-b 38s ease-in-out infinite alternate; }
+.bg .c { left: -12vmax; bottom: -32vmax; background: radial-gradient(closest-side, var(--blob-c), transparent); animation: drift-c 36s ease-in-out infinite alternate; }
+.bg .d { right: -14vmax; bottom: -28vmax; width: 52vmax; height: 52vmax; background: radial-gradient(closest-side, var(--blob-d), transparent); animation: drift-d 30s ease-in-out infinite alternate; }
+@keyframes drift-a { to { transform: translate3d(14vmax, 10vmax, 0) scale(1.15); } }
+@keyframes drift-b { to { transform: translate3d(-16vmax, 8vmax, 0) scale(1.1); } }
+@keyframes drift-c { to { transform: translate3d(12vmax, -12vmax, 0) scale(1.2); } }
+@keyframes drift-d { to { transform: translate3d(-10vmax, -8vmax, 0) scale(1.1); } }
+
+/* Glass slab: blurred backdrop, bright rim, soft shadow, a corner sheen and a highlight that follows the pointer. */
+.glass {
+  position: relative; isolation: isolate;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-lg);
+  -webkit-backdrop-filter: var(--bf);
+  backdrop-filter: var(--bf);
+  box-shadow: var(--shadow),
+    inset 0 1px 0 var(--rim), inset 0 -1px 0 var(--rim-low),
+    inset 1px 0 0 var(--rim-low), inset -1px 0 0 var(--rim-low);
+}
+.panel { display: flex; flex-direction: column; gap: 20px; padding: var(--pad); }
+
+/* Inner card: lighter glass without its own blur. */
+.card {
+  position: relative; isolation: isolate;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--r-md);
+  box-shadow: inset 0 1px 0 var(--rim), inset 0 -1px 0 var(--rim-low), 0 4px 16px rgba(20, 32, 43, 0.06);
+}
+.lit::before, .lit::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1; }
+.lit::before { background: linear-gradient(155deg, var(--sheen) 0%, transparent 32%); }
+.lit::after { opacity: 0; transition: opacity 0.3s ease; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), var(--spec), transparent 65%); }
+.lit:hover::after { opacity: 1; }
+@media (hover: hover) {
+  .card { transition: transform 0.25s ease; }
+  .card:hover { transform: translateY(-2px); }
+}
+
+.chip { align-self: flex-start; display: inline-flex; padding: 6px 14px; border-radius: 4px; color: var(--spark); background: var(--card); border: 1px solid var(--card-border); box-shadow: inset 0 1px 0 var(--rim); }
+
+.hero { gap: 22px; }
 .hero .lede { font-size: 1.2rem; color: var(--muted); }
-.hero h1 span { color: var(--copper); }
-.rig { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 8px 4px; }
+.hero h1 span { color: var(--spark); }
+.rig { padding: 16px 12px 8px; }
 .rig svg { display: block; width: 100%; height: auto; }
 .rig .cap { padding: 4px 8px 8px; }
 .coil-line { stroke: var(--copper); stroke-width: 3; stroke-linecap: round; fill: none; }
-.tube { fill: none; stroke: var(--line); stroke-width: 2; }
+.tube { fill: none; stroke: var(--line-strong); stroke-width: 2; }
 .mag-n { fill: var(--magnet-n); }
 .mag-s { fill: var(--magnet-s); }
-.mag-txt { font-family: var(--font-mono); font-size: 11px; fill: #fff; font-weight: 500; }
+.mag-txt { font-family: var(--font-mono); font-size: 11px; fill: #0b2a4a; font-weight: 400; }
 .axis-txt { font-family: var(--font-mono); font-size: 10px; fill: var(--muted); }
 .magnet { animation: swing 2.4s ease-in-out infinite alternate; }
 @keyframes swing { from { transform: translateX(0); } to { transform: translateX(150px); } }
-@media (prefers-reduced-motion: reduce) { .magnet { animation: none; transform: translateX(75px); } }
 
 .wire { stroke: var(--muted); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.box { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; }
+.box { fill: rgba(255,255,255,0.08); stroke: var(--muted); stroke-width: 1.5; }
 .batt { fill: none; stroke: var(--fg); stroke-width: 2; }
 .batt-nub { fill: var(--fg); }
 .seg { fill: var(--spark); opacity: 0.15; animation: segfill 9.6s linear infinite; }
@@ -96,53 +157,63 @@ a { color: var(--copper); }
 .glow-line { stroke: var(--spark); stroke-width: 4; stroke-linecap: round; fill: none; }
 .pulse { fill: var(--spark); animation: surge 2.4s ease-in-out infinite; }
 @keyframes surge { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) {
-  #coilglow, .pulse { display: none; }
-  .seg { animation: none; opacity: 0.8; }
-}
 
-section { display: flex; flex-direction: column; gap: 20px; }
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; padding: 0; margin: 0; list-style: none; }
-.steps li { display: flex; flex-direction: column; gap: 8px; border-top: 2px solid var(--fg); padding-top: 12px; min-width: 0; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; padding: 0; margin: 0; list-style: none; }
+.steps li { display: flex; flex-direction: column; gap: 8px; padding: 18px; min-width: 0; }
 .steps li p { color: var(--muted); font-size: 0.97rem; }
 
-.eq { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; overflow-x: auto; display: flex; flex-direction: column; gap: 6px; }
+.eq { padding: 16px 18px; overflow-x: auto; display: flex; flex-direction: column; gap: 6px; }
 .eq .raw { font-family: var(--font-mono); font-size: 1.05rem; }
 
-.chain { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-.stage { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-.stage .part { font-family: var(--font-mono); font-weight: 500; color: var(--copper); }
+.chain { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.stage { padding: 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.stage .part { font-family: var(--font-mono); font-weight: 400; font-size: 1.1rem; color: var(--link); }
 .stage .io { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
 .stage p { font-size: 0.95rem; color: var(--muted); }
 
 .specs { width: 100%; border-collapse: collapse; }
 .specs th, .specs td { text-align: left; padding: 12px 8px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
-.specs th { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); width: 38%; }
+.specs tr:last-child th, .specs tr:last-child td { border-bottom: 0; }
+.specs th { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--spark); width: 38%; }
 .specs td { font-variant-numeric: tabular-nums; }
 .specs-wrap { overflow-x: auto; }
-.tbd { color: var(--muted); font-style: italic; }
 
-.videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-.photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-figure { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-figure video, figure img { display: block; width: 100%; height: auto; border-radius: 4px; background: var(--surface); border: 1px solid var(--line); }
-figure .frame { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); }
-figure .frame img, figure .frame video { height: 100%; object-fit: cover; border: 0; border-radius: 0; }
+.videos, .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+figure { margin: 0; display: flex; flex-direction: column; gap: 10px; padding: 8px; min-width: 0; }
+figure video, figure img { display: block; width: 100%; height: auto; border-radius: var(--r-sm); }
+figure .frame { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r-sm); }
+figure .frame img { height: 100%; object-fit: cover; }
 figure.tall .frame { aspect-ratio: 3 / 4; }
 #mechanism .videos { grid-template-columns: minmax(0, 320px); }
-figcaption { font-size: 0.9rem; color: var(--muted); max-width: 40ch; }
-.sub { display: flex; flex-direction: column; gap: 16px; }
+figcaption { font-size: 0.9rem; color: var(--muted); padding: 0 8px 6px; }
 
-footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 0.9rem; }
+footer.panel { gap: 8px; color: var(--muted); font-size: 0.92rem; }
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass { background: var(--glass-solid); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: var(--glass-solid); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg i, .magnet { animation: none; }
+  .magnet { transform: translateX(75px); }
+  #coilglow, .pulse { display: none; }
+  .seg { animation: none; opacity: 0.8; }
+  .card { transition: none; }
+  .card:hover { transform: none; }
+}
 </style>
 
+<div class="bg" aria-hidden="true"><i class="a"></i><i class="b"></i><i class="c"></i><i class="d"></i></div>
+
 <main class="wrap">
-  <header class="hero">
-    <span class="label">Wearable energy harvester · in development since 2024</span>
+  <header class="glass panel hero lit">
+    <span class="chip label">Wearable energy harvester · in development since 2024</span>
     <h1>Flux<span>pack</span></h1>
     <p class="lede">The induction backpack. We're building a pack that makes electricity as you walk: a magnet swings through a coil with every step, and a small circuit stores the current in a battery.</p>
     <p class="label">Made by Aadit Naik (UC Berkeley &rsquo;30) and Kaviya Ramesh (Georgia Tech &rsquo;30)</p>
-    <div class="rig" role="img" aria-label="Animation: a magnet sliding back and forth inside a copper coil, with the coil glowing and current flowing through a circuit into a battery that charges.">
+    <div class="card lit rig" role="img" aria-label="Animation: a magnet sliding back and forth inside a copper coil, with the coil glowing and current flowing through a circuit into a battery that charges.">
       <svg viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg">
         <defs><filter id="blur" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="2.5"/></filter></defs>
         <rect class="tube" x="80" y="48" width="260" height="34" rx="6"/>
@@ -177,37 +248,37 @@ footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid 
     </div>
   </header>
 
-  <section id="about">
+  <section class="glass panel lit" id="about">
     <h2>What it is</h2>
     <p>Fluxpack is a backpack with a small generator built in. As you walk, a magnet inside swings back and forth through a coil of wire. That motion induces an electric current, and a short chain of circuit modules turns it into steady power for a lithium-ion battery.</p>
     <p>So far we have built and tested the three main parts on their own: the coil, the power circuit and the pendulum. Next, they go into a backpack.</p>
   </section>
 
-  <section id="why">
+  <section class="glass panel lit" id="why">
     <h2>Why it matters</h2>
     <p>People who deal with frequent power outages are often left unable to keep small essentials charged. A pack that makes its own power as you walk doesn't need sunlight or an outlet. Hikers and others far from any outlet face a similar problem.</p>
   </section>
 
-  <section id="how">
+  <section class="glass panel lit" id="how">
     <h2>How it works</h2>
     <ol class="steps">
-      <li>
+      <li class="card lit">
         <span class="label">Walk</span>
         <h3>The body does the work</h3>
         <p>Each step shakes the pack. A magnet inside slides back and forth through the coil.</p>
       </li>
-      <li>
+      <li class="card lit">
         <span class="label">Induce</span>
         <h3>A moving field makes current</h3>
         <p>The changing magnetic flux through the coil induces an alternating voltage across its ends.</p>
       </li>
-      <li>
+      <li class="card lit">
         <span class="label">Store</span>
         <h3>Power circuit to battery</h3>
         <p>Three small modules turn that AC into steady DC, step it up, and charge a lithium-ion cell.</p>
       </li>
     </ol>
-    <div class="eq">
+    <div class="card lit eq">
       <span class="label">Faraday's law of induction</span>
       <div>\[ \varepsilon = -N\,\frac{d\Phi}{dt} \]</div>
       <p class="raw" style="display:none" id="eq-fallback">ε = −N · dΦ/dt</p>
@@ -215,22 +286,22 @@ footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid 
     </div>
   </section>
 
-  <section id="circuit">
+  <section class="glass panel lit" id="circuit">
     <h2>The power chain</h2>
     <div class="chain">
-      <div class="stage">
+      <div class="card lit stage">
         <span class="label">Stage 1</span>
         <span class="part">LTC3588</span>
         <span class="io">AC in → regulated DC out</span>
         <p>Rectifies the coil's alternating output into steady DC.</p>
       </div>
-      <div class="stage">
+      <div class="card lit stage">
         <span class="label">Stage 2</span>
         <span class="part">MT3608</span>
         <span class="io">DC in → higher DC out</span>
         <p>Boost converter that steps the voltage up.</p>
       </div>
-      <div class="stage">
+      <div class="card lit stage">
         <span class="label">Stage 3</span>
         <span class="part">TP4056</span>
         <span class="io">DC in → Li-ion cell</span>
@@ -239,7 +310,7 @@ footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid 
     </div>
   </section>
 
-  <section id="specs">
+  <section class="glass panel lit" id="specs">
     <h2>Build sheet</h2>
     <div class="specs-wrap">
       <table class="specs">
@@ -248,78 +319,79 @@ footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid 
           <tr><th scope="row">Coil form</th><td>Custom CAD design, 3D printed</td></tr>
           <tr><th scope="row">Winding</th><td>5,000 turns, 32 AWG magnet wire</td></tr>
           <tr><th scope="row">Output</th><td>Bench tests: LTC3588 about 1.8 V, MT3608 about 4 V. Designed to charge a lithium-ion battery.</td></tr>
-          <tr><th scope="row">Testing</th><td>Coil output, efficiency and safety, across several prototypes</td></tr>        </tbody>
+          <tr><th scope="row">Testing</th><td>Coil output, efficiency and safety, across several prototypes</td></tr>
+        </tbody>
       </table>
     </div>
   </section>
 
-  <section id="gallery">
+  <section class="glass panel lit" id="gallery">
     <h2>Bench tests</h2>
     <p>Testing the coil by hand: the magnet goes in and out of the coil while a multimeter reads the output.</p>
     <div class="videos">
-      <figure>
+      <figure class="card lit">
         <video controls muted playsinline preload="none" poster="media/magnet-test-1.jpg" src="media/magnet-test-1.mp4">Your browser can't play this video.</video>
         <figcaption>LTC3588 output holding about 1.8 V while the magnet moves.</figcaption>
       </figure>
-      <figure>
+      <figure class="card lit">
         <video controls muted playsinline preload="none" poster="media/magnet-test-2.jpg" src="media/magnet-test-2.mp4">Your browser can't play this video.</video>
         <figcaption>MT3608 boost output, about 4 V. The meter reads negative because the probes were swapped.</figcaption>
       </figure>
-      <figure>
+      <figure class="card lit">
         <video controls muted playsinline preload="none" poster="media/board-test.jpg" src="media/board-test.mp4">Your browser can't play this video.</video>
         <figcaption>Power board wired to the coil during a test.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section id="mechanism">
+  <section class="glass panel lit" id="mechanism">
     <h2>The mechanism</h2>
     <p>The swinging part, tested on its own in a cardboard box.</p>
     <div class="videos">
-      <figure>
+      <figure class="card lit">
         <video controls muted playsinline preload="none" poster="media/pendulum-demo.jpg" src="media/pendulum-demo.mp4">Your browser can't play this video.</video>
         <figcaption>Pendulum frame swinging in a test box.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section id="build">
+  <section class="glass panel lit" id="build">
     <h2>The build</h2>
     <p>From breadboard tests to the soldered power board.</p>
     <div class="photos">
-      <figure class="tall">
+      <figure class="card lit tall">
         <a class="frame" href="media/breadboard-test.jpg" target="_blank" rel="noopener"><img src="media/breadboard-test.jpg" alt="Rectifier module wired up on a breadboard" loading="lazy" width="1200" height="1600"></a>
         <figcaption>First breadboard test of the rectifier stage.</figcaption>
       </figure>
-      <figure class="tall">
+      <figure class="card lit tall">
         <a class="frame" href="media/coil-form.jpg" target="_blank" rel="noopener"><img src="media/coil-form.jpg" alt="Wound coil on its form, held with tape, with lead wires" loading="lazy" width="1200" height="1600"></a>
         <figcaption>The wound coil on its form, taped and wired.</figcaption>
       </figure>
-      <figure class="tall">
+      <figure class="card lit tall">
         <a class="frame" href="media/perfboard-wiring.jpg" target="_blank" rel="noopener"><img src="media/perfboard-wiring.jpg" alt="Perfboard with jumper wires for the power circuit" loading="lazy" width="1200" height="1600"></a>
         <figcaption>Wiring the power circuit onto perfboard.</figcaption>
       </figure>
-      <figure class="tall">
+      <figure class="card lit tall">
         <a class="frame" href="media/perfboard-modules.jpg" target="_blank" rel="noopener"><img src="media/perfboard-modules.jpg" alt="Perfboard with charger, boost converter and rectifier modules mounted" loading="lazy" width="1200" height="1600"></a>
         <figcaption>Charger, boost converter and rectifier modules on the board.</figcaption>
       </figure>
-      <figure class="tall">
+      <figure class="card lit tall">
         <a class="frame" href="media/circuit-and-coil.jpg" target="_blank" rel="noopener"><img src="media/circuit-and-coil.jpg" alt="Hand holding the power board next to the coil" loading="lazy" width="1200" height="1600"></a>
         <figcaption>Checking the board next to the coil.</figcaption>
       </figure>
-      <figure class="tall">
+      <figure class="card lit tall">
         <a class="frame" href="media/workbench.jpg" target="_blank" rel="noopener"><img src="media/workbench.jpg" alt="Workbench with multimeter, solder, wire and tools" loading="lazy" width="1200" height="1600"></a>
         <figcaption>The workbench: multimeter, solder, wire and parts.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section id="next">
+  <section class="glass panel lit" id="next">
     <h2>What's next</h2>
     <p>We're finishing installing the coil, circuit and pendulum in a backpack, then testing it while walking.</p>
   </section>
 
-  <footer>
+  <footer class="glass panel lit">
     <p>Made by Aadit Naik (UC Berkeley &rsquo;30) and Kaviya Ramesh (Georgia Tech &rsquo;30). Self-directed project.</p>
     <p>Contact Aadit: <a href="mailto:aaditbnaik@gmail.com">aaditbnaik@gmail.com</a> &middot; <a href="https://www.linkedin.com/in/aadit-naik/" target="_blank" rel="noopener">LinkedIn</a></p>
     <p>Contact Kaviya: <a href="mailto:kaviyaramesh26@gmail.com">kaviyaramesh26@gmail.com</a> &middot; <a href="https://www.linkedin.com/in/kaviya-ramesh-37ba5a39b/" target="_blank" rel="noopener">LinkedIn</a></p>
@@ -341,6 +413,17 @@ footer { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid 
     q.setAttribute('class', 'glow-line');
     glow.appendChild(q);
   }
+  // Glass highlight follows the pointer on every slab and card under it.
+  document.addEventListener('pointermove', function (e) {
+    var t = e.target;
+    var el = t && t.closest ? t.closest('.lit') : null;
+    while (el) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      el = el.parentElement ? el.parentElement.closest('.lit') : null;
+    }
+  }, { passive: true });
   // If MathJax never loads, show the plain-text equation instead.
   setTimeout(function () {
     if (!(window.MathJax && window.MathJax.typesetPromise)) {
